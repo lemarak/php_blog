@@ -53,7 +53,9 @@ ul {
   flex-flow: column;
   color: var(--text-color);
 }
-
+.overflow {
+  overflow: hidden;
+}
 /* header */
 header {
   background-color: var(--primary);
