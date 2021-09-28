@@ -17,7 +17,7 @@
   transform: scale(1.15);
 }
 
-.article h2 {
+.article h3 {
   font-size: 1.7rem;
   padding: 1rem 1.5rem;
 }
@@ -25,4 +25,9 @@
   height: 30rem;
   background-size: cover;
   transition: transform 0.6s;
+}
+
+.category-container h2 {
+  font-size: 1.9rem;
+  padding: 0.5rem 1rem;
 }
