@@ -1,8 +1,7 @@
 <?php
-$pdo = require_once('./database.php');
-$statement = $pdo->prepare(' SELECT * FROM article');
-$statement->execute();
-$articles = $statement->fetchAll();
+$articleDB = require('./database/models/ArticleDB.php');
+
+$articles = $articleDB->fetchAll();
 
 $categories = [];
 
