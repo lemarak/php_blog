@@ -1,10 +1,35 @@
 <?php
+$pdo = require_once('./database.php');
+$statementReadOne = $pdo->prepare('SELECT * FROM article WHERE id=:id');
+$statementCreateOne = $pdo->prepare(
+    'INSERT INTO article (
+        title,
+        category,
+        content,
+        image
+        )
+    VALUES (
+        :title,
+        :category,
+        :content,
+        :image
+    )'
+);
+$statementUpdateOne = $pdo->prepare(
+    'UPDATE article 
+    SET
+        title=:title,
+        category=:category,
+        content=:content,
+        image=:image
+    WHERE id=:id'
+);
+
 const ERROR_REQUIRED = "Veuiilez renseigner ce champ";
 const ERROR_TITLE_TOO_SHORT = "Le titre est trop court";
 const ERROR_CONTENT_TOO_SHORT = "L'article est trop court";
 const IMAGE_URL = "L'image doit être une URL valide";
 
-$filename = __DIR__ . '/data/articles.json';
 $category = '';
 
 $errors = [
@@ -14,16 +39,16 @@ $errors = [
     'content' => ''
 ];
 
-if (file_exists($filename)) {
-    $articles = json_decode(file_get_contents($filename), true) ?? [];
-}
 
 $_GET = filter_input_array(INPUT_GET, FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 $id = $_GET['id'] ?? '';
 
+
+
 if ($id) {
-    $articleIndex = array_search($id, array_column($articles, 'id'));
-    $article = $articles[$articleIndex];
+    $statementReadOne->bindValue('id', $id);
+    $statementReadOne->execute();
+    $article = $statementReadOne->fetch();
 
     $title = $article['title'];
     $image = $article['image'];
@@ -69,27 +94,30 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (!$content) {
         $errors['content'] = ERROR_REQUIRED;
-    } elseif (mb_strlen($content) < 50) {
-        $errors['content'] = ERROR_TITLE_TOO_SHORT;
+    } elseif (mb_strlen($content) < 20) {
+        $errors['content'] = ERROR_CONTENT_TOO_SHORT;
     }
 
 
     if (empty(array_filter($errors, fn ($e) => $e !== ''))) {
         if ($id) {
-            $articles[$articleIndex]['title'] = $title;
-            $articles[$articleIndex]['image'] = $image;
-            $articles[$articleIndex]['category'] = $category;
-            $articles[$articleIndex]['content'] = $content;
+            // Update
+            $statementUpdateOne->bindValue('id', $id);
+            $statementUpdateOne->bindValue('title', $title);
+            $statementUpdateOne->bindValue('image', $image);
+            $statementUpdateOne->bindValue('category', $category);
+            $statementUpdateOne->bindValue('content', $content);
+
+            $statementUpdateOne->execute();
         } else {
-            $articles = [...$articles, [
-                'title' => $title,
-                'image' => $image,
-                'category' => $category,
-                'content' => $content,
-                'id' => time(),
-            ]];
+            // Create
+            $statementCreateOne->bindValue('title', $title);
+            $statementCreateOne->bindValue('image', $image);
+            $statementCreateOne->bindValue('category', $category);
+            $statementCreateOne->bindValue('content', $content);
+
+            $statementCreateOne->execute();
         }
-        file_put_contents($filename, json_encode($articles));
         header('Location: ./');
     }
 }
@@ -137,7 +165,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="form-control">
                         <label for="category">Catégorie</label>
                         <select name="category" id="category">
-                            <option <?= !$category || $category === 'technology' ? 'selected' : '' ?>value="technology">Technologie</option>
+                            <option <?= !$category || $category === 'technology' ? 'selected' : '' ?> value="technology">Technologie</option>
                             <option <?= $category === 'nature' ? 'selected' : '' ?> value="nature">Nature</option>
                             <option <?= $category === 'politic' ? 'selected' : '' ?> value="politic">Politique</option>
 
