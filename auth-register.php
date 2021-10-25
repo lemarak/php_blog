@@ -70,7 +70,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $statement->bindValue(':firstname', $firstname);
         $statement->bindValue(':lastname', $lastname);
         $statement->bindValue(':email', $email);
-        $statement->bindValue(':password', $password);
+        $statement->bindValue(':password', $hashPassword);
         $statement->execute();
 
         header('Location: ./');
