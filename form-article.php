@@ -74,7 +74,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 
 
-    if (empty(array_filter($errors, fn ($e) => $e !== ''))) {
+    if (empty(array_filter($errors, function ($e) {
+        return $e !== '';
+    }))) {
         $article['title'] = $title;
         $article['image'] = $image;
         $article['category'] = $category;
