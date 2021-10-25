@@ -69,8 +69,11 @@ header {
 }
 .header-menu {
   margin: 0;
+  display: flex;
+  flex-flow: row;
 }
 .header-menu li {
+  margin-left: 1rem;
   border-radius: 3px;
   padding: 5px 15px;
   transition: background-color 0.2s;
@@ -115,4 +118,53 @@ footer {
   border: var(--border);
   background-color: white;
   box-shadow: var(--box-shadow);
+}
+
+/* form */
+
+.form-container {
+  display: flex;
+  flex-flow: column;
+  width: 50rem;
+}
+
+.form-container h1 {
+  margin-bottom: 2rem;
+}
+
+.form-control {
+  display: flex;
+  flex-flow: column;
+  margin: 1rem 0;
+}
+
+.form-control label {
+  margin-bottom: 1rem;
+}
+
+.form-control input,
+textarea {
+  border: var(--border);
+  border-radius: 3px;
+  padding: 1rem 1.5rem;
+}
+
+.form-control select {
+  border: var(--border);
+  padding: 1rem 1.5rem;
+}
+
+.form-control textarea {
+  min-height: 20rem;
+}
+
+.form-action {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-end;
+}
+
+.text-error {
+  font-size: 1.2rem;
+  color: var(--danger);
 }

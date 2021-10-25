@@ -1,7 +1,7 @@
 <pre>
 <?php
 $articles = json_decode(file_get_contents('./articles.json'), true);
-
+print_r($articles);
 
 $dns = 'mysql:host=localhost;dbname=blog';
 $user = 'root';

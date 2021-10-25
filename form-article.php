@@ -99,7 +99,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <?php
     require_once("./includes/head.php");
     ?>
-    <link rel="stylesheet" href="./public/css/form-article.css">
+
     <title><?= $id ? 'Modifier un article' : 'Créer mon article' ?></title>
 </head>
 
