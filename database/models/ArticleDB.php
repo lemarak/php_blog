@@ -20,13 +20,15 @@ class ArticleDB
                 title,
                 category,
                 content,
-                image
+                image,
+                author
                 )
             VALUES (
                 :title,
                 :category,
                 :content,
-                :image
+                :image,
+                :author
             )'
         );
 
@@ -36,7 +38,8 @@ class ArticleDB
                 title=:title,
                 category=:category,
                 content=:content,
-                image=:image
+                image=:image,
+                author=:author
             WHERE id=:id'
         );
 
@@ -69,6 +72,7 @@ class ArticleDB
         $this->statementCreateOne->bindValue('image', $article['image']);
         $this->statementCreateOne->bindValue('category', $article['category']);
         $this->statementCreateOne->bindValue('content', $article['content']);
+        $this->statementCreateOne->bindValue('author', $article['author']);
 
         $this->statementCreateOne->execute();
         $this->pdo->lastInsertId();
@@ -81,6 +85,7 @@ class ArticleDB
         $this->statementUpdateOne->bindValue('image', $article['image']);
         $this->statementUpdateOne->bindValue('category', $article['category']);
         $this->statementUpdateOne->bindValue('content', $article['content']);
+        $this->statementUpdateOne->bindValue('author', $article['author']);
         $this->statementUpdateOne->bindValue('id', $article['id']);
 
         $this->statementUpdateOne->execute();

@@ -1,5 +1,12 @@
 <?php
 require __DIR__ . '/database/database.php';
+require __DIR__ . '/database/security.php';
+
+$currentUser = isLoggedIn();
+if (!$currentUser) {
+    header('Location: ./');
+}
+
 $articleDB = require __DIR__ . '/database/models/ArticleDB.php';
 
 
@@ -82,6 +89,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $article['image'] = $image;
         $article['category'] = $category;
         $article['content'] = $content;
+        $article['author'] = $currentUser['id'];
         if ($id) {
             // Update
             $article['id'] = $id;
