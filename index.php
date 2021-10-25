@@ -87,6 +87,11 @@ if (count($articles)) {
                                             <div class="img-container" style="background-image:url(<?= $article['image'] ?>)"></div>
                                         </div>
                                         <h3><?= $article['title'] ?></h3>
+                                        <?php if ($article['author']) : ?>
+                                            <div class="article-author">
+                                                <p><?= $article['firstname'] ?> <?= $article['lastname'] ?></p>
+                                            </div>
+                                        <?php endif ?>
                                     </a>
                                 <?php endforeach ?>
                             </div>
@@ -100,6 +105,11 @@ if (count($articles)) {
                                         <div class="img-container" style="background-image:url(<?= $article['image'] ?>)"></div>
                                     </div>
                                     <h3><?= $article['title'] ?></h3>
+                                    <?php if ($article['author']) : ?>
+                                        <div class="article-author">
+                                            <p><?= $article['firstname'] ?> <?= $article['lastname'] ?></p>
+                                        </div>
+                                    <?php endif ?>
                                 </a>
                             <?php endforeach ?>
                         </div>

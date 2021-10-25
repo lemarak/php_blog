@@ -35,3 +35,11 @@
   align-items: flex-end;
   justify-content: flex-end;
 }
+
+.article-author {
+  text-align: right;
+  padding-bottom: 1rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  font-style: italic;
+}

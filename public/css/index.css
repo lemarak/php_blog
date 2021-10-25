@@ -26,7 +26,17 @@
   background-size: cover;
   transition: transform 0.6s;
 }
-
+.article-author {
+  display: flex;
+  justify-content: flex-end;
+  padding-right: 2rem;
+  padding-bottom: 1rem;
+}
+.article-author p {
+  font-size: 1.1rem;
+  font-weight: 700;
+  font-style: italic;
+}
 .newsfeed-content h2 {
   font-size: 1.9rem;
   padding: 0.5rem 1rem;
