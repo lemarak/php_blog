@@ -20,6 +20,10 @@
   margin: 0 5px;
   box-shadow: var(--box-shadow);
 }
+.btn-small {
+  font-size: 1.2rem;
+  padding: 7px 12px;
+}
 .btn-primary {
   background-color: var(--primary);
   color: var(--text-color-light);

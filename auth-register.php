@@ -73,7 +73,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $statement->bindValue(':password', $hashPassword);
         $statement->execute();
 
-        header('Location: ./');
+        header('Location: ./auth-login.php');
     }
 }
 ?>

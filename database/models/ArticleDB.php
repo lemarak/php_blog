@@ -8,6 +8,7 @@ class ArticleDB
     private PDOStatement  $statementUpdateOne;
     private PDOStatement  $statementDeleteOne;
     private PDOStatement  $statementReadAll;
+    private PDOStatement $statementReadUserAll;
 
     function __construct(private PDO $pdo)
     {
@@ -53,22 +54,27 @@ class ArticleDB
         );
 
         $this->statementDeleteOne = $pdo->prepare('DELETE FROM article WHERE id=:id');
+
+        $this->statementReadUserAll = $pdo->prepare(
+            'SELECT * FROM article
+            WHERE author=:idAuthor'
+        );
     }
 
-    public function fetchAll()
+    public function fetchAll(): array
     {
         $this->statementReadAll->execute();
         return $this->statementReadAll->fetchAll();
     }
 
-    public function fetchOne(int $id)
+    public function fetchOne(int $id): array
     {
         $this->statementReadOne->bindValue('id', $id);
         $this->statementReadOne->execute();
         return $this->statementReadOne->fetch();
     }
 
-    public function deleteOne(int $id)
+    public function deleteOne(int $id): string
     {
         $this->statementDeleteOne->bindValue(':id', $id);
         $this->statementDeleteOne->execute();
@@ -88,7 +94,7 @@ class ArticleDB
         return $this->fetchOne($this->pdo->lastInsertId());
     }
 
-    public function updateOne($article)
+    public function updateOne($article): array
     {
         $this->statementUpdateOne->bindValue('title', $article['title']);
         $this->statementUpdateOne->bindValue('image', $article['image']);
@@ -99,6 +105,13 @@ class ArticleDB
 
         $this->statementUpdateOne->execute();
         return $article;
+    }
+
+    public function fetchUserArticle(string $idUser): array
+    {
+        $this->statementReadUserAll->bindValue(':idAuthor', $idUser);
+        $this->statementReadUserAll->execute();
+        return $this->statementReadUserAll->fetchAll();
     }
 }
 
