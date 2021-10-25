@@ -1,5 +1,6 @@
 <?php
-$articleDB = require('./database/models/ArticleDB.php');
+require __DIR__ . '/database/database.php';
+$articleDB = require __DIR__ . '/database/models/ArticleDB.php';
 
 
 const ERROR_REQUIRED = "Veuiilez renseigner ce champ";

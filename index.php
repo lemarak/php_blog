@@ -1,4 +1,9 @@
 <?php
+require __DIR__ . '/database/database.php';
+require __DIR__ . '/database/security.php';
+
+$currentUser = isLoggedIn();
+
 $articleDB = require('./database/models/ArticleDB.php');
 
 $articles = $articleDB->fetchAll();
@@ -10,7 +15,9 @@ $selectedCat = $_GET['cat'] ?? '';
 
 
 if (count($articles)) {
-    $cat_temp = array_map(fn ($a) => $a['category'], $articles);
+    $cat_temp = array_map(function ($a) {
+        return $a['category'];
+    }, $articles);
     $categories = array_reduce(
         $cat_temp,
         function ($acc, $cat) {
