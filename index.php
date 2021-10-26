@@ -1,8 +1,8 @@
 <?php
 require __DIR__ . '/database/database.php';
-require __DIR__ . '/database/security.php';
+$authDB = require_once('./database/security.php');
 
-$currentUser = isLoggedIn();
+$currentUser = $authDB->isLoggedIn();
 
 $articleDB = require('./database/models/ArticleDB.php');
 
