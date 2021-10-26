@@ -13,7 +13,7 @@ try {
     ]);
     // echo "Connexion db blog Ok" . "<br>";
 } catch (PDOException $e) {
-    echo "Error : " . $e->getMessage();
+    throw new Exception($e->getMessage());
 }
 
 return $pdo;
