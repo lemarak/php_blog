@@ -4,3 +4,4 @@
 <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="./public/css/style.css">
 <link rel="stylesheet" href="./public/css/utils.css">
+<script defer src="./public/js/index.js"></script>
